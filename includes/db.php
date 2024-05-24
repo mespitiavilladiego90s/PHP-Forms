@@ -1,5 +1,4 @@
 <?php
-
 class Database
 {
     private static $pdo;
@@ -9,16 +8,19 @@ class Database
     {
         try {
             if (!isset(self::$pdo)) {
-                $dsn = 'mysql:host=localhost;dbname=appmvc';
+                $dsn = 'mysql:host=localhost;dbname=forms';
                 $username = 'root';
                 $password = 'root';
 
                 self::$pdo = new PDO($dsn, $username, $password);
                 self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             }
             return self::$pdo;
         } catch (\Throwable $th) {
-            return json_encode(['error' => $th->getMessage()]);
+            echo json_encode(['error' => $th->getMessage()]);
+            exit;
         }
     }
+
 }
